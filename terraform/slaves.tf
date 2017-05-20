@@ -1,7 +1,7 @@
 resource "aws_instance" "slaves" {
 	count = "${var.slaves}"
 
-	instance_type     = "${var.instance_type.slave}"
+	instance_type     = "${var.instance_type[slave]}"
 	ami               = "${lookup(var.ami, var.region)}"
 	key_name          = "${var.key_name}"
 	subnet_id         = "${aws_subnet.public.id}"
