@@ -10,7 +10,7 @@ resource "aws_instance" "slaves" {
 
 	block_device {
 		device_name           = "/dev/sdb"
-		volume_size           = "${var.slave_block_device.volume_size}"
+		volume_size           = "${var.slave_block_device[volume_size]}"
 		delete_on_termination = true
 	}
 
