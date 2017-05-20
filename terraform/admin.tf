@@ -1,3 +1,24 @@
+provider "aws" {}
+
+resource "aws_vpc" "default" {
+        cidr_block           = "10.0.0.0/16"
+        enable_dns_support   = true
+        enable_dns_hostnames = true
+}
+
+module "mesos_ceph" {
+        source                   = "github.com/riywo/mesos-ceph/terraform"
+        vpc_id                   = "${aws_vpc.default.id}"
+        key_name                 = "${var.key_name}"
+        key_path                 = "${var.key_path}"
+        subnet_availability_zone = "us-west-2"
+        subnet_cidr_block        = "10.0.1.0/24"
+        master1_ip               = "10.0.1.11"
+        master2_ip               = "10.0.1.12"
+        master3_ip               = "10.0.1.13"
+}
+
+
 resource "aws_instance" "admin" {
 	instance_type     = "${var.instance_type[admin]}"
 	ami               = "${lookup(var.ami, var.region)}"
