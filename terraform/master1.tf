@@ -1,5 +1,5 @@
 resource "aws_instance" "master1" {
-	instance_type     = "${var.instance_type.master}"
+	instance_type     = "${var.instance_type[master]}"
 	ami               = "${lookup(var.ami, var.region)}"
 	key_name          = "${var.key_name}"
 	subnet_id         = "${aws_subnet.public.id}"
