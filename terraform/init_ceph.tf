@@ -26,7 +26,7 @@ resource "null_resource" "init_ceph" {
 
 	provisioner "remote-exec" {
 		inline = [
-			"echo main ${aws_instance.admin.private_ip} ${var.master1_ip} ${var.master2_ip} ${var.master3_ip} ${join(\" \", aws_instance.slaves.*.private_ip)} | cat /tmp/${null_resource.init_ceph.id}-*.sh - | bash"
+			"echo main ${aws_instance.admin.private_ip} ${var.master1_ip} ${var.master2_ip} ${var.master3_ip} ${join(aws_instance.slaves.*.private_ip)} | cat /tmp/${null_resource.init_ceph.id}-*.sh - | bash"
 		]
 	}
 }
